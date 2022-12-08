@@ -27,6 +27,7 @@ void	app_error(char *str)
 int main(int argc, char **argv)
 {
 	int sockfd, n;
+	int clientfd;
 	int sendbytes;
 	struct sockaddr_in servaddr;
 	char sendline[MAXLINE];
@@ -34,9 +35,8 @@ int main(int argc, char **argv)
 
 	if (argc != 2)
 		app_error("Usage: CLIENT <server address>");
-	if ((sockfd = socket(AF_INET, SOCK_STREAM, 0) < 0))
+	if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
 		app_error("Error: cannot create socket");
-	printf("Socket fd: %d\n", sockfd);
 	bzero(&servaddr, sizeof(servaddr));
 	servaddr.sin_family = AF_INET;
 	servaddr.sin_port = htons(SERVER_PORT);
@@ -45,8 +45,7 @@ int main(int argc, char **argv)
 		app_error("Error: inet_pton failure");
 
 
-
-	if (connect(sockfd, (SA *)&servaddr, sizeof(servaddr)) < 0)
+	if (clientfd = connect(sockfd, (SA *)&servaddr, sizeof(servaddr)) < 0)
 		app_error("Error: cannot connect");
 
 	// We're connect. Prepare the message.
